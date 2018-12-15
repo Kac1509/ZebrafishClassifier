@@ -5,9 +5,7 @@ from random import shuffle
 import glob
 import shutil
 
-class Genotype:
-    def __init__(self, name):
-        self.name = name
+
 
 def deleteFiles(path):
     if os.path.exists(path):
@@ -35,6 +33,6 @@ def createDirectories(nbClasses,data_dir,base_dir,Genotypes):
 
         #Create Train and Test Folders for each type
         Genotypes[i].train_path = base_dir + 'Train/' + Genotypes[i].name  + '/'
-        Genotypes[i].test_path = base_dir + 'Test/' + Genotypes[i].name  + '/'
+        Genotypes[i].validation_path = base_dir + 'Validation/' + Genotypes[i].name  + '/'
         createFolder(Genotypes[i].train_path)
-        createFolder(Genotypes[i].test_path)
+        createFolder(Genotypes[i].validation_path)

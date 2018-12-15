@@ -6,5 +6,5 @@ def saveFiles(Genotypes):
                 save_fname0 = os.path.join(Genotypes[i].train_path, 'Train' + str(idx+1) + '.png')
                 Genotypes[i].trainSet[idx].save(save_fname0)
             for idx in range(len(Genotypes[i].testSet)):
-                save_fname0 = os.path.join(Genotypes[i].test_path, 'Test' + str(idx+1) + '.png')
+                save_fname0 = os.path.join(Genotypes[i].validation_path, 'Validation' + str(idx+1) + '.png')
                 Genotypes[i].testSet[idx].save(save_fname0)
