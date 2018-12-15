@@ -45,8 +45,8 @@ End with an example of getting some data out of the system or using it for a lit
 ## Authors
 
 * **Kaleem Corbin** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Lazar Stoj Corbin** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-* **Kaleem Corbin** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Lazar Stojkovic ** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Vojislav Gligorovski** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
 
 ## Acknowledgments
 
