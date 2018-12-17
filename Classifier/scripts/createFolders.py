@@ -13,7 +13,10 @@ def deleteFiles(path):
 
 def createFolder(path):
     if os.path.exists(path):
-        shutil.rmtree(path)
+        try:
+            shutil.rmtree(path)
+        except OSError as e:
+            print ("Error: %s - %s." % (e.filename, e.strerror))
     os.makedirs(path)
     
 def createDirectories(nbClasses,data_dir,base_dir,Genotypes):
@@ -25,8 +28,10 @@ def createDirectories(nbClasses,data_dir,base_dir,Genotypes):
 
         #Retrieve all images link to a given type
         for idx, filename in enumerate(os.listdir(class_dir)): 
-            im=Image.open(class_dir+filename)
-            class_images.append(im)
+            with Image.open(class_dir+filename) as im:
+                im=Image.open(class_dir+filename)
+                class_images.append(im)
+            
 
         #Create Zebra Object and save images to type 
         Genotypes[i].images = class_images  

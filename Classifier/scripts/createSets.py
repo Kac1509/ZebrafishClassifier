@@ -7,8 +7,9 @@ def retrieveSmall(Genotypes,size):
     for i in range(len(Genotypes)):
         print(len(Genotypes[i].images))
         if(len(Genotypes[i].images)<size):
-            size = len(Genotypes[i].images) 
-    return size
+            size = len(Genotypes[i].images)
+            idx = i
+    return idx,size
 
 #Shuffle images
 #Fixed: Fixed size of training and test set for all types
@@ -27,7 +28,7 @@ def shuffleImages_split(Genotype,training_size, size,fixed):
 #Create Training and Test set
 def createTrain_Test(Genotypes,training_size,fixed = False):
     training_size = training_size
-    size = retrieveSmall(Genotypes,sys.maxsize)
+    idx,size = retrieveSmall(Genotypes,sys.maxsize)
     for i in range(len(Genotypes)):
         shuffleImages_split(Genotypes[i],training_size,size,fixed)
 
