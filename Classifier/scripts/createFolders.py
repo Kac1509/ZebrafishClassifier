@@ -13,10 +13,12 @@ def deleteFiles(path):
 
 def createFolder(path):
     if os.path.exists(path):
-        try:
-            shutil.rmtree(path)
-        except OSError as e:
-            print ("Error: %s - %s." % (e.filename, e.strerror))
+        for retry in range(100):
+            try:
+                shutil.rmtree(path)
+            except OSError as e:
+                a = 1
+                #print ("Error: %s - %s." % (e.filename, e.strerror))
     os.makedirs(path)
     
 def createDirectories(nbClasses,data_dir,base_dir,Genotypes):
