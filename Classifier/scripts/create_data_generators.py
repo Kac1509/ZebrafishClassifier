@@ -1,7 +1,7 @@
 import os
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-def create_data_generators(data_src_path, shapeY, shapeX, train_batch_size = 5, validation_batch_size = 10, rotation_range = 0, width_shift_range = 0, height_shift_range = 0, shear_range = 0, zoom_range = 0, class_mode = 'binary'):
+def create_data_generators(data_src_path, shapeY, shapeX, train_batch_size = 5, validation_batch_size = 10, rotation_range = 0, width_shift_range = 0, height_shift_range = 0, shear_range = 0, zoom_range = 0, horizontal_flip = False, class_mode = 'binary'):
 
   # Define our train and validation directories and files
   train_dir = os.path.join(data_src_path, 'Train')
@@ -16,8 +16,8 @@ def create_data_generators(data_src_path, shapeY, shapeX, train_batch_size = 5, 
       width_shift_range=width_shift_range,
       height_shift_range=height_shift_range,
       shear_range=shear_range,
-      zoom_range=zoom_range)#,
-      #horizontal_flip=False)
+      zoom_range=zoom_range,
+      horizontal_flip=horizontal_flip)
 
   # Note that the validation data should not be augmented!
   validation_datagen = ImageDataGenerator(rescale=1./255)
