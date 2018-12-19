@@ -19,7 +19,7 @@ def CV_run(Genotypes_Fold,History_Fold,Model_Fold,Hyperparameters,Genotypes,
     for train_index, test_index in kf.split(Genotypes[idx].images):
 
         print("Fold: ", Fold," test_index: ",test_index)
-        time.delay(15)
+        time.sleep(15)
         createDirectories(len(Genotypes),Extracted_path,Partitioned_path,Genotypes)
 
         for i in range(len(Genotypes)):
@@ -32,9 +32,9 @@ def CV_run(Genotypes_Fold,History_Fold,Model_Fold,Hyperparameters,Genotypes,
         
         Fold+=1
 
-def Hyperparameter_tuning(Base_path,Extracted_path,Partitioned_path,Genotypes,Hyperparameters,HypVals):
+def Hyperparameter_tuning(Base_path,Extracted_path,Partitioned_path,Genotypes,Hyperparameters,HypVals,epochs,k_fold = 3):
 
-    k_fold = 3
+   
     
    
     # split data in k fold
@@ -67,7 +67,7 @@ def Hyperparameter_tuning(Base_path,Extracted_path,Partitioned_path,Genotypes,Hy
                Genotypes,
                Extracted_path,
                Partitioned_path,
-               epochs=3,
+               epochs=epochs,
                n_splits = k_fold)
         
         loss_tr_tmp = []

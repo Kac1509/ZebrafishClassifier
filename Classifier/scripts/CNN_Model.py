@@ -61,6 +61,7 @@ def runModel(Partitioned_path,Genotypes,Hyperparameters,epochs = 2):
     # Transformations are for training generator only
     
     #Delay 15 seconds for syncing purposes
+    time.sleep(15)
     train_generator, validation_generator = create_data_generators(
         Partitioned_path,
         Hyperparameters.shapeY, Hyperparameters.shapeX, 
