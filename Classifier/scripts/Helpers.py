@@ -4,6 +4,8 @@ from PIL import Image
 from random import shuffle
 import glob
 import shutil
+import zipfile
+
 
 
 
@@ -20,6 +22,13 @@ def createFolder(path):
                 a = 1
                 #print ("Error: %s - %s." % (e.filename, e.strerror))
     os.makedirs(path)
+    
+def unzip_data(src_path, dst_path):
+  local_zip = src_path
+  zip_ref = zipfile.ZipFile(local_zip, 'r')
+  zip_ref.extractall(dst_path)
+  zip_ref.close()
+    
     
 def createDirectories(nbClasses,data_dir,base_dir,Genotypes):
     
@@ -43,3 +52,14 @@ def createDirectories(nbClasses,data_dir,base_dir,Genotypes):
         Genotypes[i].validation_path = base_dir + 'Validation/' + Genotypes[i].name  + '/'
         createFolder(Genotypes[i].train_path)
         createFolder(Genotypes[i].validation_path)
+
+def saveFiles(Genotypes):
+     for i in range(len(Genotypes)):
+            #deleteFiles(Genotypes[i].train_path)
+            #deleteFiles(Genotypes[i].validation_path)
+            for idx in range(len(Genotypes[i].trainSet)):
+                save_fname0 = os.path.join(Genotypes[i].train_path, 'Train' + str(idx+1) + '.png')
+                Genotypes[i].trainSet[idx].save(save_fname0)
+            for idx in range(len(Genotypes[i].testSet)):
+                save_fname0 = os.path.join(Genotypes[i].validation_path, 'Validation' + str(idx+1) + '.png')
+                Genotypes[i].testSet[idx].save(save_fname0)

@@ -59,25 +59,8 @@ def plot_loss_acc(history):
   plt.xticks(epochs)
   plt.grid(True)
 
-
-  
-  
-
-
-
-def cross_validation_visualization(hyperparameters, mse_tr, mse_te):
-    """visualization the curves of mse_tr and mse_te."""
-    plt.semilogx(hyperparameters, mse_tr, marker=".", color='b', label='train error')
-    plt.semilogx(hyperparameters, mse_te, marker=".", color='r', label='test error')
-    plt.xlabel("learning rate")
-    plt.ylabel("loss")
-    plt.title("different learning rates")
-    plt.legend(loc=2)
-    plt.grid(True)
-    # plt.savefig("cross_validation")
-
     
-def cross_validation_visualization1(train_sizes,train_scores_mean, train_scores_std,
+def cross_validation_visualization(train_sizes,train_scores_mean, train_scores_std,
                                     test_scores_mean, test_scores_std, xlabel,
                                     ylim=None):
     """visualization the curves of mse_tr and mse_te."""
