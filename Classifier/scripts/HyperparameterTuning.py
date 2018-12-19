@@ -4,6 +4,7 @@ import numpy as np
 from Helpers import *
 from CNN_Model import *
 from Genotype import *
+import time
 
 
 
@@ -18,6 +19,7 @@ def CV_run(Genotypes_Fold,History_Fold,Model_Fold,Hyperparameters,Genotypes,
     for train_index, test_index in kf.split(Genotypes[idx].images):
 
         print("Fold: ", Fold," test_index: ",test_index)
+        time.delay(15)
         createDirectories(len(Genotypes),Extracted_path,Partitioned_path,Genotypes)
 
         for i in range(len(Genotypes)):
