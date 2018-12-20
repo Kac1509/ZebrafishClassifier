@@ -21,7 +21,8 @@ prompt, i.e. "conda install numpy"
 
 The project can be ran in the Jupyter Notebook environment, Google Colaboratory environment or
 directly through the command line. Google Colaboratory was used for computationally depending
-tasks leveraging their provided GPU.
+tasks leveraging their provided GPU. It is was particularly useful for running our model with
+bigger input sizes for the images. 
 
 To run from the command line, open the command line in the directory where the ZebrafishClassifier 
 folder is located. Then simply paste the following command:
@@ -30,14 +31,18 @@ python "directory_path\ZebrafishClassifier\CNN_Classifier\scripts\run.py"
 To run from the Jupyter Notebook environment, simply open and run through each cell:
 directory_path\ZebrafishClassifier\CNN_Classifier.ipynb
 
-To run from the Colaboratory environment, open the link below:
+To run from the Colaboratory environment, open the link below and follow these steps:
   - Create the following directory in the root of Google Drive 'Colab Notebooks/CNN_Classifier/scripts'
   - Add all .py files in the scripts folder
   - Add 'DataStraightened.zip' to Colab Notebooks/CNN_Classifier/
+  - Set Colab to True
+  - You will be prompted to give Google Colaboratory access to Google Drive where the scripts and data
+  files are located
 https://colab.research.google.com/github/Kac1509/ZebrafishClassifier/blob/master/ClassifierFinal.ipynb
 
-*Running through the command line does not allow for data visualization. For this, it is recommended
-to use Jupyter or Google Colaboratory.
+Running through the command line does not allow for data visualization. For this, it is recommended
+to use Jupyter or Google Colaboratory. Furthermore, the latter two environments allow the user to access
+the code. This is important for chaning the parameters and running the hyperparameter tuning program.
 
 ### Models
 
@@ -55,10 +60,20 @@ As a default, the model being trained uses a pre-trained CNN network with a full
 layer. We defined the hyperparameters for our model to be the input size, number of hidden nodes, 
 dropout rate and learning rate. The optimal values for our model were determined to be: input size
 set to 75x375, number of hidden nodes set to 256,dropout rate set to 0.5 and the learning rate for
-the RMSProp optimizer set to 10E-4.
+the RMSProp optimizer set to 10E-4. 
 
 This program is quite computationally intensive and may take a few minutes to run. Faster performance
-can be obtained by running the program in the Google Colaboratory.  
+can be obtained by running the program in the Google Colaboratory. The optimal model presented above
+is best ran in the Google Colaboratory environment
+
+### Hyperparameter tuning
+Hyperparameter tuning requires access to the code, therefore it can be done using the Jupyter Notebook
+or the Google Colaboratory environment. Hyperparameter tuning is conducted using K-fold cross-validation.
+The pipeline to tune a particular parameter is the same for all parameters, except for input size. However,
+it is necessary to set the given parameter under test manually (commenting and uncommenting code). For 
+input size, Input Size boolean must be set to True in the Hyperparameter_tuning function. Hyperparameter 
+tuning is a combination of grid search and cross-validation therefore it can be quite computationally 
+laborious. Therefore, it is recommended to perform this task in the Google Colaboratory environment.
 
 
 ### Folder Structure
@@ -100,7 +115,8 @@ of the model are defined and set here. These user-defined parameters consists of
 dropout rate, learning rate, number of nodes, pre-trained model, activation function, loss 
 function and optimizer. Model configuration, compilation and execution is located in this file
 Each time a model is trained, the paritions for each genotype is first saved into their respective
-train and validation folders.
+train and validation folders. The main function for hyperparameter tuning using cross-validation
+is located in this file, see the section above for further detail.
 
 ├── DataVisualization.py
 All data visulatization and plotting functions are located in this file. First plot is to
