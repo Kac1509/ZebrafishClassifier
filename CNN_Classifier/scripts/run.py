@@ -4,17 +4,19 @@ import os
 #Set if running locally or in Google Col}aboratory
 Colab = False
 if Colab:
-    Script_path = '/content/gdrive/My Drive/Colab Notebooks/Classifier/scripts'
-    Base_path = '/content/gdrive/My Drive/Colab Notebooks/Classifier/'
+    Script_path = '/content/gdrive/My Drive/Colab Notebooks/CNN_Classifier/scripts'
+    Base_path = '/content/gdrive/My Drive/Colab Notebooks/CNN_Classifier/'
     from google.colab import drive
     drive.mount('/content/gdrive')
 else:
-    Script_path = os.getcwd() + '/Classifier/scripts'
-    Base_path = "C:/Users/Kaleem/EPFL/Fall 2018/Machine Learning/Project_2/Git/ZebrafishClassifier/Classifier/"
+    Script_path = os.getcwd() + '/CNN_Classifier/scripts'
+    Base_path = os.getcwd() + '/CNN_Classifier/'
 
 #Add script folder to system path
 sys.path.insert(0, Script_path)
-print(sys.path)
+#print(sys.path)
+print('Scripts should be in this folder: ', Script_path)
+print('DataStraightened.zip should be in this folder: ', Base_path)
 
 
 from CNN_Model import *
@@ -59,7 +61,7 @@ else:
     createTrain_Test(Genotypes,training_size = 0.7, fixed = True)
 
     Parameters = setParameters(Paths,
-                               shapeY = 100, shapeX = 100,
+                               shapeY = 75, shapeX = 375,
                                dropout_rate = 0,
                                LR = 0.0001,
                                num_nodes = 256,

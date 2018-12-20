@@ -1,4 +1,4 @@
-# Zebrafish Classifier
+﻿# Zebrafish Classifier
 
 The object of this project was to construct a highly reliable image classification technique
 for distinguishing between fss, gullum and wild type zebrafish embryos.
@@ -16,7 +16,7 @@ for distinguishing between fss, gullum and wild type zebrafish embryos.
 The first step is to setup the Python envirnoment.
 
 The easiest way to set this up and acquire all the necessary dependencies is to install Anaconda
-with Python 3.6. The next step is to install of the required prerequist through the Anaconda
+with Python 3.6. The next step is to install of the required prerequiste through the Anaconda
 prompt, i.e. "conda install numpy" 
 
 The project can be ran in the Jupyter Notebook environment, Google Colaboratory environment or
@@ -62,9 +62,17 @@ dropout rate and learning rate. The optimal values for our model were determined
 set to 75x375, number of hidden nodes set to 256,dropout rate set to 0.5 and the learning rate for
 the RMSProp optimizer set to 10E-4. 
 
-This program is quite computationally intensive and may take a few minutes to run. Faster performance
-can be obtained by running the program in the Google Colaboratory. The optimal model presented above
-is best ran in the Google Colaboratory environment
+This program is quite computationally intensive and takes approximately 10 minutes to run using CPU with
+8GB of RAM. Faster performance can be obtained by running the program in the Google Colaboratory. 
+The optimal model presented above is best ran in the Google Colaboratory environment
+
+**To execute the program, 'DataStraightened.zip' file must be placed in the 
+'directory_path\ZebrafishClassifier\CNN_Classifier\' folder. 
+The data file was too large to upload include the zip file, therefore it can be downloaded from here:
+https://drive.google.com/open?id=1FyOFR7lkSG7uFHVB2eV5d1jVwmAKZ7dm
+
+Similarly, although not needed for the main run program, the inception weight file can be downloaded here:
+https://drive.google.com/open?id=1f5hQh6jM2-nnuzLtTz3vkvmzS_fuOuEu
 
 ### Hyperparameter tuning
 Hyperparameter tuning requires access to the code, therefore it can be done using the Jupyter Notebook
@@ -97,7 +105,7 @@ laborious. Therefore, it is recommended to perform this task in the Google Colab
   │   │   │   ├── test-s.png
        ...
   │   │   │   ├── test50-s.png 
-  ├── KNN_Classifier                           # KNN Model files
+  ├── KNN                           	       # KNN Model files
   │   ├── scripts                              # Script Files
   │   │   ├── KNN_helpers.py
   │   │   ├── Setup.py
@@ -155,6 +163,8 @@ extracted from the zip file. All folders are cleared to reset the environment fo
 ├── main_knn.py
 This file contains all of the required functions for generating and evaluating our KNN model. The parameters
 of the model are defined and set here. Model configuration, compilation and execution is located in this file.
+To run this file it is important to place the 'DataStraightened.zip' file into the KNN_Classifier folder shown
+in the folder structure section
 
 ├── KNN_helpers.py
 All helper functions regarding KNN model are located here. It consists primairly of functions for file and folder
