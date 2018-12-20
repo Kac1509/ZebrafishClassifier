@@ -18,7 +18,7 @@ The first step is to setup the Python envirnoment.
 The easiest way to set this up and acquire all the necessary dependencies is to install Anaconda
 with Python 3.6
 
-The project can be ran in Jupyter Notebook environment. We also used Google Colaboratory for 
+The project can be ran in the Jupyter Notebook environment. We also used Google Colaboratory for 
 computationally depending tasks leveraging their provided GPU. 
 
 
@@ -69,14 +69,16 @@ the RMSProp optimizer set to 10E-4.
   ├── Requirements.txt                  # Requirements 
 
 
-### Scripts Structure
+Some of these folder are generated once the main program is executed
+
+### Scripts Structure (.py files)
 ├── CNN_Model.py
-This file is contains all of the required functions for generating our CNN model. The parameters
-of the model are defined and set. These user-defined parameters consists of the input size, 
+This file contains all of the required functions for generating our CNN model. The parameters
+of the model are defined and set here. These user-defined parameters consists of the input size, 
 dropout rate, learning rate, number of nodes, pre-trained model, activation function, loss 
 function and optimizer. Model configuration, compilation and execution is located in this file
-Each time a model is trained, the paritions for each genotype is first saved into its respective
-train and validation folder.
+Each time a model is trained, the paritions for each genotype is first saved into their respective
+train and validation folders.
 
 ├── DataVisualization.py
 All data visulatization and plotting functions are located in this file. First plot is to
@@ -86,23 +88,24 @@ parameter evaluated.
 
 ├── Genotype.py
 The Genotype class is defined in this class and contains genotype related information. It also
-contains partitioning of data into train and test sets when not using cross-validation.
+contains the function responsible for partitioning the data into train and test sets (when not 
+using cross-validation).
 
 ├── Helpers.py
-All helper functions used across files are located here. It consists primairly of functions
-for file and folder manipulation.
+All helper functions are located here. It consists primairly of functions for file and folder
+manipulation.
 
 ├── Pre_trained_models.py
-All parameters for the pre-trained model and the process to extract the bottleneck layer for
-both VGG16 and InceptionV3 is located in this file
+All parameters for the pre-trained model are located here. The process of extracting the bottleneck 
+layer for both VGG16 and InceptionV3 is located in this file
 
 ├── Predictions.py
-Prediction functions are located here. It predicts the class for the images located in the
-Predictions folder. It also contains the function to save the predictions and model parameters
-to a csv file.
+Prediction functions are located here. The predictClass function predicts the class for the images
+located in the Predictions folder. It also contains a function to save the predictions and model
+parameters to a csv file.
 
 ├── Setup.py
-This file is used to setup environment. In this file all the paths are set and the data is 
+This file is used to set up the environment. In this file all the paths are set and the data is 
 extracted from the zip file. All folders are cleared to reset the environment for the next run.
 
 ## Authors
