@@ -19,14 +19,15 @@ The easiest way to set this up and acquire all the necessary dependencies is to 
 with Python 3.6. The next step is to install of the required prerequist through the Anaconda
 prompt, i.e. "conda install numpy" 
 
-The project can be ran in the Jupyter Notebook environment, Google Colaboratry environment or
-directly on through the command line. Google Colaboratory was used for computationally depending
+The project can be ran in the Jupyter Notebook environment, Google Colaboratory environment or
+directly through the command line. Google Colaboratory was used for computationally depending
 tasks leveraging their provided GPU.
 
-To run from the command line, simply paste the following command:
+To run from the command line, open the command line in the directory where the ZebrafishClassifier 
+folder is located. Then simply paste the following command:
 python "directory_path\ZebrafishClassifier\CNN_Classifier\scripts\run.py"
 
-To run from the Jupter Notebook environment, simply open and run through each cell:
+To run from the Jupyter Notebook environment, simply open and run through each cell:
 directory_path\ZebrafishClassifier\CNN_Classifier.ipynb
 
 To run from the Colaboratory environment, open the link below:
@@ -35,7 +36,8 @@ To run from the Colaboratory environment, open the link below:
   - Add 'DataStraightened.zip' to Colab Notebooks/Classifier/
 https://colab.research.google.com/github/Kac1509/ZebrafishClassifier/blob/master/ClassifierFinal.ipynb
 
-
+*Running through the command line does not allow for data visualization. For this, it is recommended
+to use Jupyter or Google Colaboratory.
 
 ### Models
 
