@@ -1,4 +1,4 @@
-# ZebrafishClassifier
+# Zebrafish Classifier
 
 The object of this project was to construct a highly reliable image classification technique
 for distinguishing between fss, gullum and wild type zebrafish embryos.
@@ -31,9 +31,9 @@ To run from the Jupyter Notebook environment, simply open and run through each c
 directory_path\ZebrafishClassifier\CNN_Classifier.ipynb
 
 To run from the Colaboratory environment, open the link below:
-  - Create the following directory in the root of Google Drive 'Colab Notebooks/Classifier/scripts'
+  - Create the following directory in the root of Google Drive 'Colab Notebooks/CNN_Classifier/scripts'
   - Add all .py files in the scripts folder
-  - Add 'DataStraightened.zip' to Colab Notebooks/Classifier/
+  - Add 'DataStraightened.zip' to Colab Notebooks/CNN_Classifier/
 https://colab.research.google.com/github/Kac1509/ZebrafishClassifier/blob/master/ClassifierFinal.ipynb
 
 *Running through the command line does not allow for data visualization. For this, it is recommended
