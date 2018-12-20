@@ -18,8 +18,22 @@ The first step is to setup the Python envirnoment.
 The easiest way to set this up and acquire all the necessary dependencies is to install Anaconda
 with Python 3.6
 
-The project can be ran in the Jupyter Notebook environment. We also used Google Colaboratory for 
-computationally depending tasks leveraging their provided GPU. 
+The project can be ran in the Jupyter Notebook environment, Google Colaboratry environment or
+directly on through the command line. Google Colaboratory was used for computationally depending
+tasks leveraging their provided GPU.
+
+To run from the command line, simply paste the following command:
+python "directory_path\ZebrafishClassifier\CNN_Classifier\scripts\run.py"
+
+To run from the Jupter Notebook environment, simply open and run through each cell:
+directory_path\ZebrafishClassifier\CNN_Classifier.ipynb
+
+To run from the Colaboratory environment, open the link below:
+  - Create the following directory in the root of Google Drive 'Colab Notebooks/Classifier/scripts'
+  - Add all .py files in the scripts folder
+  - Add 'DataStraightened.zip' to Colab Notebooks/Classifier/
+https://colab.research.google.com/github/Kac1509/ZebrafishClassifier/blob/master/ClassifierFinal.ipynb
+
 
 
 ### Models
@@ -29,7 +43,7 @@ computationally depending tasks leveraging their provided GPU.
 - InceptionV3 CNN with one hidden layer
 
 ### Main Program
-The main program is run.py(). Executing this program will train our best image classifier using
+The main program is run.py(). Executing this program will train our best image classifier model using
 training data from the 'DataStraightened.zip' file. After training the model, the program will 
 predict the genotypes of the images placed in the Predictions folder. In this case, this represents
 our test data.
@@ -40,12 +54,14 @@ dropout rate and learning rate. The optimal values for our model were determined
 set to 75x375, number of hidden nodes set to 256,dropout rate set to 0.5 and the learning rate for
 the RMSProp optimizer set to 10E-4.
 
+This program is quite computationally intensive and may take a few minutes to run. Faster performance
+can be obtained by running the program in the Google Colaboratory.  
 
 
 ### Folder Structure
 ├── ZebrafishClassifier
-  ├── CNN_Classifier                    # CNN Model files 
-  │   ├── scripts                       # Script Files
+  ├── CNN_Classifier                          # CNN Model files 
+  │   ├── scripts                             # Script Files
   │   │   ├── CNN_Model.py
   │   │   ├── DataVisualization.py
   │   │   ├── Genotype.py
@@ -53,20 +69,23 @@ the RMSProp optimizer set to 10E-4.
   │   │   ├── Pre_trained_models.py
   │   │   ├── Predictions.py
   │   │   ├── Setup.py
-  │   ├── weights                       # Weight Files
+  │   ├── weights                             # Weight Files
   │   │   ├── inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5
   │   │   ├── vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
-  │   ├── Extracted_data                # Extracted Files (Only created once the main program is executed)
-  │   ├── PartitionedData               # Partioned Files (Only created once the main program is executed)
-  │   ├── Predictions                   # Prediction Files
+  │   ├── Extracted_data                      # Extracted Files (Only created once the main program is executed)
+  │   ├── PartitionedData                     # Partioned Files (Only created once the main program is executed)
+  │   ├── Predictions                         # Prediction Files
   │   │   ├── Straightened
   │   │   │   ├── test-s.png
        ...
   │   │   │   ├── test50-s.png 
-  ├── KNN_Classifier                    # KNN Model files
+  ├── KNN_Classifier                           # KNN Model files
   │   ├── benchmarks
-  ├── README.MD                         # Readme file 
-  ├── Requirements.txt                  # Requirements 
+  ├── README.MD                                # Readme file 
+  ├── Requirements.txt                         # Requirements 
+  ├── Results                                  # Results of the test data using our best model
+  │   ├──Results_Option1_2018-12-19_1027.csv   #Results from test set 1
+  │   ├──Results_Option2_2018-12-19_1034.csv   #Results from test set 1
 
 
 Some of these folder are generated once the main program is executed
