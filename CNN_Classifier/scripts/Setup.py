@@ -14,7 +14,6 @@ def setupEnvironment(Base_path,Data_file):
     Path.extracted_path = Base_path + 'ExtractedData/'
     Path.partitioned_path = Base_path + 'PartitionedData/'
     Path.prediction_path = Base_path + 'Predictions/'
-    Path.validation_prediction_path = Base_path + 'Validation_Predictions/'
     
     #Clear Folders and create Prediction folder
     deleteFiles(Path.extracted_path)
