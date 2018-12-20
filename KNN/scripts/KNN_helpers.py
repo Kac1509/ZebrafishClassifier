@@ -36,14 +36,14 @@ def read_images(path):
   # print len(arr)
   return arr
   
-def images_to_rawpixels(class0, class1, shape_x, shape_y):
+def images_to_rawpixels(class0, class1, class2, shape_x, shape_y):
     
     # initialize the raw pixel intensities matrix, the features matrix,
     # and labels list
     rawImages = []
     labels = []
 
-    images = class0 + class1
+    images = class0 + class1 + class2
     # print len(images)
 
     for i in range(len(images)):
@@ -68,14 +68,14 @@ def images_to_rawpixels(class0, class1, shape_x, shape_y):
       rawImages.nbytes / (1024 * 1000.0)))
     return rawImages, labels
 	
-def images_to_hystogram_features(class0, class1):
+def images_to_hystogram_features(class0, class1, class2):
     
     # initialize the features matrix,
     # and labels list
     features = []
     labels = []
 
-    images = class0 + class1
+    images = class0 + class1 + class2
     # print len(images)
 
     for i in range(len(images)):

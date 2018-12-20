@@ -10,12 +10,14 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 from unzip_data import *
 from separete_train_test_data import *
 from KNN_helpers import *
+from KNN_helpers import *
+from Helpers import *
+from Setup import *
+Script_path = os.getcwd() + '/scripts'
+Base_path = ''
 
 # builds and evaluates two knn models
 def run_knn(n_neighbours = 3):
-
-	zip_path = 'Data.zip'
-	folder_path = 'tmp'
 
 	shapeY = 150
 	shapeX = 750
@@ -23,24 +25,24 @@ def run_knn(n_neighbours = 3):
 
 
 	# Unziping(if necessary) and separating data into Train and Validation sets
-	if os.path.isdir(folder_path+'/Data') == False:
-	  unzip_data(zip_path, folder_path)
-	  
-	separete_train_test_data(folder_path, training_size = 20)
+	Paths = setupEnvironment(Base_path,'DataStraightened.zip')
+	separete_train_test_data('ExtractedData', training_size = 20)
 
 	# Readin Test and Train images
 	print('TRAIN')
-	class0_train = read_images(folder_path+'/Data/train/her1her7s/*.png')
-	class1_train = read_images(folder_path+'/Data/train/fsstbx6s/*.png')
-	rawImages, _ = images_to_rawpixels(class0_train, class1_train, shapeX, shapeY)
-	features, labels = images_to_hystogram_features(class0_train, class1_train)
+	class0_train = read_images('ExtractedData/Train/her1her7s/*.png')
+	class1_train = read_images('ExtractedData/Train/fsstbx6s/*.png')
+	class2_train = read_images('ExtractedData/Train/WTs/*.png')
+	rawImages, _ = images_to_rawpixels(class0_train, class1_train, class2_train, shapeX, shapeY)
+	features, labels = images_to_hystogram_features(class0_train, class1_train, class2_train)
 
 
 	print('TEST')
-	class0_test = read_images(folder_path+'/Data/test/her1her7s/*.png')
-	class1_test = read_images(folder_path+'/Data/test/fsstbx6s/*.png')
-	rawImagesTest, _ = images_to_rawpixels(class0_test, class1_test, shapeX, shapeY)
-	featuresTest, labelsTest = images_to_hystogram_features(class0_test, class1_test)
+	class0_test = read_images('ExtractedData/Test/her1her7s/*.png')
+	class1_test = read_images('ExtractedData/Test/fsstbx6s/*.png')
+	class2_test = read_images('ExtractedData/Test/WTs/*.png')
+	rawImagesTest, _ = images_to_rawpixels(class0_test, class1_test, class2_test, shapeX, shapeY)
+	featuresTest, labelsTest = images_to_hystogram_features(class0_test, class1_test, class2_test)
 
 
 	# Training and evaluation of the model
@@ -56,36 +58,35 @@ def run_knn(n_neighbours = 3):
 # builds and evaluates knn two models multiple(k) times and calculates mean accuaracy of models  	
 def run_knn_cross(n_neighbours = 3, k = 4):
 
-	zip_path = 'Data.zip'
-	folder_path = 'tmp'
-
 	shapeY = 150
 	shapeX = 750
 	color_channels = 3
 
 
 	# Unziping(if necessary) and separating data into Train and Validation sets
-	if os.path.isdir(folder_path+'/Data') == False:
-	  unzip_data(zip_path, folder_path)
+	Paths = setupEnvironment(Base_path,'DataStraightened.zip')
 	
 	accRarr = []
 	accHarr = []
 	for	i in range(k):
-		separete_train_test_data(folder_path, training_size = 20)
+		separete_train_test_data('ExtractedData', training_size = 20)
 
 		# Readin Test and Train images
-		print('\nTRAIN')
-		class0_train = read_images(folder_path+'/Data/train/her1her7s/*.png')
-		class1_train = read_images(folder_path+'/Data/train/fsstbx6s/*.png')
-		rawImages, _ = images_to_rawpixels(class0_train, class1_train, shapeX, shapeY)
-		features, labels = images_to_hystogram_features(class0_train, class1_train)
+		print('TRAIN')
+		class0_train = read_images('ExtractedData/Train/her1her7s/*.png')
+		class1_train = read_images('ExtractedData/Train/fsstbx6s/*.png')
+		class2_train = read_images('ExtractedData/Train/WTs/*.png')
+		rawImages, _ = images_to_rawpixels(class0_train, class1_train, class2_train, shapeX, shapeY)
+		features, labels = images_to_hystogram_features(class0_train, class1_train, class2_train)
 
 
 		print('TEST')
-		class0_test = read_images(folder_path+'/Data/test/her1her7s/*.png')
-		class1_test = read_images(folder_path+'/Data/test/fsstbx6s/*.png')
-		rawImagesTest, _ = images_to_rawpixels(class0_test, class1_test, shapeX, shapeY)
-		featuresTest, labelsTest = images_to_hystogram_features(class0_test, class1_test)
+		class0_test = read_images('ExtractedData/Test/her1her7s/*.png')
+		class1_test = read_images('ExtractedData/Test/fsstbx6s/*.png')
+		class2_test = read_images('ExtractedData/Test/WTs/*.png')
+		rawImagesTest, _ = images_to_rawpixels(class0_test, class1_test, class2_test, shapeX, shapeY)
+		featuresTest, labelsTest = images_to_hystogram_features(class0_test, class1_test, class2_test)
+
 
 
 		# Training and evaluation of the model
