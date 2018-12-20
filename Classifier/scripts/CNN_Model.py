@@ -1,100 +1,99 @@
-from Helpers import *
 from tensorflow.keras import layers
 from tensorflow.keras import Model
 from tensorflow.keras.optimizers import RMSprop, Adam
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from pre_trained_models import *
+from Pre_trained_models import *
+from Helpers import *
 
 import os
 import time
 
-class Hyperparameters:
-    def __init__(self,Tuning):
-        self.Tuning = Tuning
+class Parameters:
+    def __init__(self,Dropout):
+        self.Dropout = Dropout
 
-def setParameters(Base_path, shapeY = 50, shapeX = 50, dropout_rate = 0, LR = 0.0001, num_nodes = 256, VGG16 = True):
+def setParameters(Paths, shapeY = 50, shapeX = 50, dropout_rate = 0, LR = 0.0001, num_nodes = 256, VGG16 = True,Dropout = True):
+    
+    
+    Parm = Parameters(Dropout)
+    Parm.dropout_rate = dropout_rate
+    Parm.LR = LR
+    Parm.num_nodes = num_nodes
+    Parm.shapeY = shapeY
+    Parm.shapeX = shapeX
+   
+    
     if VGG16:
         #VGG16 Model
-        local_weights_file_VGG16 = Base_path + 'weights/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5'
-        pre_trained_model, last_layer_output = load_pre_trained_VGG16(local_weights_file_VGG16, shapeY, shapeX, color_channels = 3)
+        local_weights_file_VGG16 = Paths.base_path + 'weights/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5'
+        pre_trained_model, last_layer_output = load_pre_trained_VGG16(local_weights_file_VGG16, Parm, color_channels = 3)
     else:
         # Inception Model
-        local_weights_file_Inception = Base_path + 'weights/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
-        pre_trained_model, last_layer_output = load_pre_trained_Inception(local_weights_file_Inception, shapeY, shapeX, color_channels = 3)
-    
-    Hyperparm = Hyperparameters(True)
-    Hyperparm.dropout_rate = dropout_rate
-    Hyperparm.LR = LR
-    Hyperparm.num_nodes = num_nodes
-    Hyperparm.shapeY = shapeY
-    Hyperparm.shapeX = shapeX
-    Hyperparm.pre_trained_model = pre_trained_model
-    Hyperparm.last_layer_output = last_layer_output
-    
-    return Hyperparm
+        local_weights_file_Inception = Paths.base_path + 'weights/inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5'
+        pre_trained_model, last_layer_output = load_pre_trained_Inception(local_weights_file_Inception, Parm, color_channels = 3)
+        
+    Parm.pre_trained_model = pre_trained_model
+    Parm.last_layer_output = last_layer_output
 
-def build_model_RMSprop(pre_trained_model, cnn_last_output,Dropout = False, dropout_rate = 0.5, learning_rate = 0.00001, hidden_units_num = 1024, num_classes = 1, activation='sigmoid'):
+    
+    return Parm
+
+def build_model_RMSprop(Parameters, num_classes, activation='sigmoid'):
 
   # Flatten the output layer to 1 dimension
-  x = layers.Flatten()(cnn_last_output)
+  x = layers.Flatten()(Parameters.last_layer_output)
   # Add a fully connected layer with 1,024 hidden units and ReLU activation
-  x = layers.Dense(hidden_units_num, activation='relu')(x)
+  x = layers.Dense(Parameters.num_nodes, activation='relu')(x)
   # Add a dropout rate of 0.2
-  if Dropout:
-      x = layers.Dropout(dropout_rate)(x)
+  if Parameters.Dropout:
+      x = layers.Dropout(Parameters.dropout_rate)(x)
   # Add a final sigmoid layer for classification
   x = layers.Dense(num_classes, activation=activation)(x)
 
   # Configure and compile the model
-  model = Model(pre_trained_model.input, x)
+  model = Model(Parameters.pre_trained_model.input, x)
   model.compile(loss='binary_crossentropy',
-                optimizer=RMSprop(lr=learning_rate), #Adam(lr=0.00005, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.1, amsgrad=False)
+                optimizer=RMSprop(lr=Parameters.LR), #Adam(lr=0.00005, beta_1=0.9, beta_2=0.999, epsilon=None, decay=0.1, amsgrad=False)
                 metrics=['acc'])
   return model
 
 
-def runModel(Partitioned_path,Genotypes,Hyperparameters,epochs = 2):
+def runModel(Paths,Genotypes,Parameters,epochs = 2):
     #Save partitions to respective folder
     saveFiles(Genotypes)
     
     # Creating training and validation data generators from separated data
     # Transformations are for training generator only
     
-    #Delay 15 seconds for syncing purposes
-    time.sleep(15)
+    #Delay for syncing purposes
+    time.sleep(1)
     train_generator, validation_generator = create_data_generators(
-        Partitioned_path,
-        Hyperparameters.shapeY, Hyperparameters.shapeX, 
+        Paths.partitioned_path,
+        Parameters, 
         train_batch_size=len(Genotypes[0].trainSet), 
         validation_batch_size=len(Genotypes[0].testSet),
         class_mode='categorical',
         horizontal_flip = False)
     
-    #Delay 15 seconds for syncing purposes
-    time.sleep(15)
+    #Delay for syncing purposes
+    time.sleep(1)
         
     # Building model
-    model = build_model_RMSprop(Hyperparameters.pre_trained_model, Hyperparameters.last_layer_output, 
-                            Dropout = False,
-                            dropout_rate = Hyperparameters.dropout_rate, 
-                            learning_rate = Hyperparameters.LR ,
-                            hidden_units_num = Hyperparameters.num_nodes,
-                            num_classes=len(Genotypes),
-                            activation = 'softmax')
+    model = build_model_RMSprop(Parameters,num_classes=len(Genotypes),activation = 'softmax')
     
     # Training model
     history = model.fit_generator(
       train_generator,
-      steps_per_epoch=3,
+      steps_per_epoch=len(Genotypes),
       epochs=epochs,
       validation_data=validation_generator,
-      validation_steps=3,
+      validation_steps=len(Genotypes),
       verbose=2)
     
-    return Genotypes,history,model
+    return history,model
 
 
-def create_data_generators(data_src_path, shapeY, shapeX, train_batch_size = 5, validation_batch_size = 10, rotation_range = 0, width_shift_range = 0, height_shift_range = 0, shear_range = 0, zoom_range = 0, horizontal_flip = False, class_mode = 'binary'):
+def create_data_generators(data_src_path, Parameters, train_batch_size = 5, validation_batch_size = 10, rotation_range = 0, width_shift_range = 0, height_shift_range = 0, shear_range = 0, zoom_range = 0, horizontal_flip = False, class_mode = 'binary'):
 
   # Define our train and validation directories and files
   train_dir = os.path.join(data_src_path, 'Train')
@@ -116,16 +115,15 @@ def create_data_generators(data_src_path, shapeY, shapeX, train_batch_size = 5, 
   validation_datagen = ImageDataGenerator(rescale=1./255)
 
   train_generator = train_datagen.flow_from_directory(
-          train_dir, # This is the source directory for training images
-          target_size=(shapeY, shapeX),  # All images will be resized to 150x150
+          train_dir,
+          target_size=(Parameters.shapeY, Parameters.shapeX),  # All images are resized 
           batch_size=train_batch_size,
           # Since we use binary_crossentropy loss, we need binary labels
           class_mode=class_mode)
 
-  # Flow validation images in batches of 20 using test_datagen generator
   validation_generator = validation_datagen.flow_from_directory(
           validation_dir,
-          target_size=(shapeY, shapeX),
+          target_size=(Parameters.shapeY, Parameters.shapeX),  # All images are resized 
           batch_size=validation_batch_size,
           class_mode=class_mode)
   

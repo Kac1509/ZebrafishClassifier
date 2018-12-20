@@ -8,68 +8,64 @@ import time
 
 
 
-def CV_run(Genotypes_Fold,History_Fold,Model_Fold,Hyperparameters,Genotypes,
-               Extracted_path,
-               Partitioned_path,epochs,n_splits):
+def CV_run(Genotypes_Fold,History_Fold,Model_Fold,Parameters,Genotypes,Paths,epochs,n_splits):
+    
+    # Retrieve size of genotype with fewest images
     idx,size = retrieveSmall(Genotypes,sys.maxsize)
+    
+    #K-fold validation splitting
     kf = KFold(n_splits=n_splits, shuffle=True,random_state = 7)
     kf.get_n_splits(Genotypes[idx].images) 
     Fold = 0;
  
     for train_index, test_index in kf.split(Genotypes[idx].images):
-
+        
+        #Added a delay for syncing purposes (Particularly for cloud storage)
         print("Fold: ", Fold," test_index: ",test_index)
         time.sleep(15)
-        createDirectories(len(Genotypes),Extracted_path,Partitioned_path,Genotypes)
-
+        createDirectories(len(Genotypes),Paths,Genotypes)
+        
         for i in range(len(Genotypes)):
             Genotypes[i].trainSet = itemgetter(*train_index)(Genotypes[i].images)
             Genotypes[i].testSet = itemgetter(*test_index)(Genotypes[i].images)
-            #print("Train_set size: ", len(Genotypes[i].trainSet), " Test_set size: ",len(Genotypes[i].testSet))
-            
-        Gen,Hist,Mdl = runModel(Partitioned_path,Genotypes,Hyperparameters,epochs)
-        Genotypes_Fold.append(Gen),History_Fold.append(Hist),Model_Fold.append(Mdl) 
-        
+                        
+        History,Model = runModel(Paths,Genotypes,Parameters,epochs)
+        Genotypes_Fold.append(Genotypes),History_Fold.append(History),Model_Fold.append(Model)         
         Fold+=1
 
-def Hyperparameter_tuning(Base_path,Extracted_path,Partitioned_path,Genotypes,Hyperparameters,HypVals,epochs,k_fold = 3):
-
+def Hyperparameter_tuning(Paths,Genotypes,Parameters,Hyperparameter,epochs,k_fold):
+      
+    #Set true if the hyperparameter is Input_Size
+    Input_Size = False
    
-    
-   
-    # split data in k fold
-    # k_indices = build_k_indices(y, k_fold, seed)
-    # define lists to store the loss of training data and test data
+    #Store train & test mean and standard deviation loss 
     loss_tr = []
     loss_te = []
     loss_trSTD = []
-    loss_teSTD = []
-    
-    IS = False
-    
-    # cross validation
-    for parameter in HypVals:
-        
-        
-        print(HypVals)
+    loss_teSTD = []   
+ 
+    #Iterate through values of hyperparmeter being tuned
+    for parameter in Hyperparameter:
+        print(Hyperparameter)
         print('parameter = ' + str(parameter))    
         Genotypes_Fold = []
         History_Fold = []
         Model_Fold = []
-        if IS:
-            Hyperparameters.local_weights_file_VGG16 = Base_path + 'weights/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5'
-            Hyperparameters.pre_trained_model_VGG16, Hyperparameters.last_layer_output_VGG16 = load_pre_trained_VGG16(local_weights_file_VGG16, Hyperparameters.shapeY, Hyperparameters.shapeX, color_channels)
+        if Input_Size:
+            Parameters.local_weights_file_VGG16 = Paths.base_path + 'weights/vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5'
+            Parameters.pre_trained_model_VGG16, Parameters.last_layer_output_VGG16 = load_pre_trained_VGG16(local_weights_file_VGG16,
+                                                                                                            Parameters,
+                                                                                                            color_channels)
             
-        
-    
+        #cross validation
         CV_run(Genotypes_Fold,History_Fold,Model_Fold,
-               Hyperparameters,
+               Parameters,
                Genotypes,
-               Extracted_path,
-               Partitioned_path,
-               epochs=epochs,
+               Paths,
+               epochs,
                n_splits = k_fold)
         
+        #Store loss for each fold
         loss_tr_tmp = []
         loss_te_tmp = []
         for i in range(k_fold):
@@ -89,7 +85,7 @@ def Hyperparameter_tuning(Base_path,Extracted_path,Partitioned_path,Genotypes,Hy
     
     Losses = [ np.asarray(loss_tr),np.asarray(loss_te),np.asarray(loss_trSTD),np.asarray(loss_teSTD)]
     
-    return HypVals,Losses
+    return Hyperparameter,Losses
 
 
         

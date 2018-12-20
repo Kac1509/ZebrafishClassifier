@@ -1,10 +1,10 @@
 from tensorflow.keras.applications import VGG16
 from tensorflow.keras.applications.inception_v3 import InceptionV3
 
-def load_pre_trained_Inception(path, shapeY, shapeX, color_channels):
+def load_pre_trained_Inception(path, Parameters, color_channels):
   
   pre_trained_model = InceptionV3(
-    input_shape=(shapeY, shapeX, color_channels), include_top=False, weights=None)
+    input_shape=(Parameters.shapeY, Parameters.shapeX, color_channels), include_top=False, weights=None)
   
   # loading pre-trained weights
   pre_trained_model.load_weights(path)
@@ -20,10 +20,10 @@ def load_pre_trained_Inception(path, shapeY, shapeX, color_channels):
   return pre_trained_model, last_layer.output
 
 
-def load_pre_trained_VGG16(path, shapeY, shapeX, color_channels):
+def load_pre_trained_VGG16(path, Parameters, color_channels):
   
   pre_trained_model = VGG16(
-    input_shape=(shapeY, shapeX, color_channels), include_top=False, weights=None)
+    input_shape=(Parameters.shapeY, Parameters.shapeX, color_channels), include_top=False, weights=None)
   
   # loading pre-trained weights
   pre_trained_model.load_weights(path)

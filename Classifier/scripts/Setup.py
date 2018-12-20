@@ -3,22 +3,27 @@ import os
 from Helpers import *
 
    
+class Paths:
+    def __init__(self,base_path):
+        self.base_path = base_path
+        
 def setupEnvironment(Base_path,Data_file):
     #Set Paths
-    Zip_path = Base_path + Data_file
-    Extracted_path = Base_path + 'ExtractedData/'
-    Partitioned_path = Base_path + 'PartitionedData/'
-    Prediction_path = Base_path + 'Predictions/'
-    Validation_prediction_path = Base_path + 'Validation_Predictions/'
+    Path = Paths(Base_path)
+    Path.zip_path = Base_path + Data_file
+    Path.extracted_path = Base_path + 'ExtractedData/'
+    Path.partitioned_path = Base_path + 'PartitionedData/'
+    Path.prediction_path = Base_path + 'Predictions/'
+    Path.validation_prediction_path = Base_path + 'Validation_Predictions/'
     
     #Clear Folders and create Prediction folder
-    deleteFiles(Extracted_path)
-    deleteFiles(Partitioned_path)
-    createFolder(Prediction_path)
+    deleteFiles(Path.extracted_path)
+    deleteFiles(Path.partitioned_path)
+    #createFolder(Path.prediction_path)
     
     #Extract Data
-    unzip_data(Zip_path, Extracted_path)
+    unzip_data(Path.zip_path, Path.extracted_path)
     
-    return Extracted_path,Partitioned_path,Prediction_path,Validation_prediction_path
+    return Path
 
     

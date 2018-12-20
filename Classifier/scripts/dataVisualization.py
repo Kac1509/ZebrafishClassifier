@@ -61,14 +61,11 @@ def plot_loss_acc(history):
 
     
 def cross_validation_visualization(train_sizes,train_scores_mean, train_scores_std,
-                                    test_scores_mean, test_scores_std, xlabel,
-                                    ylim=None):
+                                    test_scores_mean, test_scores_std, xlabel):
     """visualization the curves of mse_tr and mse_te."""
     title = 'Hyperparameter Tuning using Cross-Validation'
     plt.figure()
     plt.title(title)
-    if ylim is not None:
-        plt.ylim(*ylim)
     plt.xlabel(xlabel)
     plt.ylabel("Error")
 

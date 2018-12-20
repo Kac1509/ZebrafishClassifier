@@ -8,19 +8,23 @@ class Genotype:
     def __init__(self, name):
         self.name = name
         
-def createGenotypes(Extracted_path,Partitioned_path):
+def createGenotypes(Paths):
     Genotypes = []
-    num_classes = len(glob.glob(Extracted_path+'*'))
+    
+    #Extract number of classes
+    num_classes = len(glob.glob(Paths.extracted_path+'*'))
     for i in range(num_classes):
             #Retrieve directory for a given type
-            Genotype_name = os.listdir(Extracted_path)[i]
+            Genotype_name = os.listdir(Paths.extracted_path)[i]
             Genotypes.append(Genotype(Genotype_name))
     print(num_classes)
-    createDirectories(num_classes,Extracted_path,Partitioned_path,Genotypes)
+    
+    #Create directories for each genotype
+    createDirectories(num_classes,Paths,Genotypes)
     return Genotypes
 
 
-#Retrieve the size of the type with the fewest images 
+#Retrieve the size of the genotype class with the fewest images 
 def retrieveSmall(Genotypes,size):
     for i in range(len(Genotypes)):
         print(len(Genotypes[i].images))
@@ -30,8 +34,8 @@ def retrieveSmall(Genotypes,size):
     return idx,size
 
 #Shuffle images
-#Fixed: Fixed size of training and test set for all types
-#Otherwise: Variable size of training and test set for all types
+#If Fixed is ture: Fixed size of training and test set for all types
+#Otherwise: Variable size of training and test set for all types based on % of their respective total
 def shuffleImages_split(Genotype,training_size, size,fixed):
     shuffle(Genotype.images)
     if fixed:
