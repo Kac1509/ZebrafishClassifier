@@ -16,7 +16,8 @@ for distinguishing between fss, gullum and wild type zebrafish embryos.
 The first step is to setup the Python envirnoment.
 
 The easiest way to set this up and acquire all the necessary dependencies is to install Anaconda
-with Python 3.6
+with Python 3.6. The next step is to install of the required prerequist through the Anaconda
+prompt, i.e. "conda install numpy" 
 
 The project can be ran in the Jupyter Notebook environment, Google Colaboratry environment or
 directly on through the command line. Google Colaboratory was used for computationally depending
