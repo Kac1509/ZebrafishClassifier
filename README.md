@@ -98,7 +98,12 @@ laborious. Therefore, it is recommended to perform this task in the Google Colab
        ...
   │   │   │   ├── test50-s.png 
   ├── KNN_Classifier                           # KNN Model files
-  │   ├── benchmarks
+  │   ├── scripts                              # Script Files
+  │   │   ├── KNN_helpers.py
+  │   │   ├── Setup.py
+  │   ├── Extracted_data                       # Extracted Files (Only created once the main program is executed)
+  │   ├── KNN.ipynb							   # Notebook that shows and reproduces KNN results
+  │   ├── main_knn.py						   
   ├── README.MD                                # Readme file 
   ├── Requirements.txt                         # Requirements 
   ├── Results                                  # Results of the test data using our best model
@@ -145,6 +150,14 @@ parameters to a csv file.
 ├── Setup.py
 This file is used to set up the environment. In this file all the paths are set and the data is 
 extracted from the zip file. All folders are cleared to reset the environment for the next run.
+
+├── main_knn.py
+This file contains all of the required functions for generating and evaluating our KNN model. The parameters
+of the model are defined and set here. Model configuration, compilation and execution is located in this file.
+
+├── KNN_helpers.py
+All helper functions regarding KNN model are located here. It consists primairly of functions for file and folder
+manipulation.
 
 ## Authors
 
