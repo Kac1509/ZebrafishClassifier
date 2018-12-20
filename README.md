@@ -101,6 +101,7 @@ laborious. Therefore, it is recommended to perform this task in the Google Colab
   │   ├── scripts                              # Script Files
   │   │   ├── KNN_helpers.py
   │   │   ├── Setup.py
+  │   │   ├── Helpers.py
   │   ├── Extracted_data                       # Extracted Files (Only created once the main program is executed)
   │   ├── KNN.ipynb							   # Notebook that shows and reproduces KNN results
   │   ├── main_knn.py						   

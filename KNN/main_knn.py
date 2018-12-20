@@ -7,7 +7,6 @@ import warnings
 import numpy as np
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-from separete_train_test_data import *
 from KNN_helpers import *
 from Setup import *
 Script_path = os.getcwd() + '/scripts'
