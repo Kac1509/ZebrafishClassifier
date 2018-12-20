@@ -32,11 +32,83 @@ The project can be ran using Jupyter Notebook, but equally it can be ran directl
 
 (End with an example of getting some data out of the system or using it for a little demo)
 
+### Main Program
+The main program is run.py(). Executing this program will train our best image classifier using training data from the
+'DataStraightened.zip' file. After training the model, the program will predict the genotypes of the images placed in the 
+Predictions folder. In this case, this represents our test data.
+
+As a default, the model being trained uses a pre-trained CNN network with a fully-connected output layer. We defined the 
+hyperparameters for our model to be the input size, number of hidden nodes, dropout rate and learning rate. The optimal values for
+our model were determined to be: input size set to 75x375, number of hidden nodes set to 256,dropout rate set to 0.5 and the learning
+rate for the RMSProp optimizer set to 10E-4.
+
+
+
 ### Folder Structure
+├── ZebrafishClassifier
+  ├── CNN_Classifier                    # CNN Model files 
+  │   ├── scripts                       # Script Files
+  │   │   ├── CNN_Model.py
+  │   │   ├── DataVisualization.py
+  │   │   ├── Genotype.py
+  │   │   ├── Helpers.py
+  │   │   ├── Pre_trained_models.py
+  │   │   ├── Predictions.py
+  │   │   ├── Setup.py
+  │   ├── weights                       # Weight Files
+  │   │   ├── inception_v3_weights_tf_dim_ordering_tf_kernels_notop.h5
+  │   │   ├── vgg16_weights_tf_dim_ordering_tf_kernels_notop.h5
+  │   ├── Extracted_data                # Extracted Files (Only created once the main program is executed)
+  │   ├── PartitionedData               # Partioned Files (Only created once the main program is executed)
+  │   ├── Predictions                   # Prediction Files
+  │   │   ├── Straightened
+  │   │   │   ├── test-s.png
+       ...
+  │   │   │   ├── test50-s.png 
+  ├── KNN_Classifier                    # KNN Model files
+  │   ├── benchmarks
+  ├── README.MD                         # Readme file 
+  ├── Requirements.txt                  # Requirements 
 
 
+### Scripts Structure
+├── CNN_Model.py
+This file is contains all of the required functions for generating our CNN model.
+The parameters of the model are defined and set. These user-defined parameters 
+consists of the input size, dropout rate, learning rate, number of nodes, pre-trained model,
+activation function, loss function and optimizer.
+Model configuration, compilation and execution is located in this file
+Each time a model is trained, the paritions for each genotype is first saved into its
+respective train and validation folder.
 
- 
+├── DataVisualization.py
+All data visulatization and plotting functions are located in this file.
+First plot is to visualize the train & test accuracy and error.
+Second plot is used to visualize the tuning of the hyperparameters using cross-validation.
+It plots the mean and standard deviation for each parameter evaluated.
+
+├── Genotype.py
+The Genotype class is defined in this class and contains genotype related information.
+It also contains partitioning of data into train and test sets when not using 
+cross-validation.
+
+├── Helpers.py
+All helper functions used across files are located here. It consists primairly of functions
+for file and folder manipulation.
+
+├── Pre_trained_models.py
+All parameters for the pre-trained model and the process to extract the bottleneck layer for
+both VGG16 and InceptionV3 is located in this file
+
+├── Predictions.py
+Prediction functions are located here. It predicts the class for the images located in the
+Predictions folder. It also contains the function to save the predictions and model parameters
+to a csv file.
+
+├── Setup.py
+This file is used to setup environment.
+In this file all the paths are set and the data is extracted from the zip file.
+All folders are cleared to reset the environment for the next run.
 
 ## Authors
 
