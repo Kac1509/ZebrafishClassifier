@@ -12,7 +12,7 @@ def predictClass(model,Paths, Parameters, class_mode='binary'):
     #Predict images that are placed in prediction folder 
     test_datagen = ImageDataGenerator(rescale=1./255)
     test_generator = test_datagen.flow_from_directory(
-        Paths.prediction_path,
+        Paths.partitioned_path,
         target_size=(Parameters.shapeY, Parameters.shapeX),
         batch_size=1,
         shuffle = False,
