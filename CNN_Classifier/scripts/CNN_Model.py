@@ -74,6 +74,8 @@ def runModel(Paths,Genotypes,Parameters,epochs = 2):
         validation_batch_size=len(Genotypes[0].testSet),
         class_mode='categorical',
         horizontal_flip = False)
+    labels = (train_generator.class_indices)
+    
     
     #Delay for syncing purposes
     time.sleep(1)
@@ -90,7 +92,7 @@ def runModel(Paths,Genotypes,Parameters,epochs = 2):
       validation_steps=len(Genotypes),
       verbose=2)
     
-    return history,model
+    return history,model,labels
 
 
 def create_data_generators(data_src_path, Parameters, train_batch_size = 5, validation_batch_size = 10, rotation_range = 0, width_shift_range = 0, height_shift_range = 0, shear_range = 0, zoom_range = 0, horizontal_flip = False, class_mode = 'binary'):
