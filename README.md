@@ -7,7 +7,7 @@ for distinguishing between fss, gullum and wild type zebrafish embryos.
 
 - Python 3.6
 - Matplotlib 2.0.2
-- Tensorflow 1.12.0
+- Tensorflow 1.12.1
 - Numpy 1.15.4
 
 
