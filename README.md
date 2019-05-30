@@ -83,6 +83,8 @@ input size, Input Size boolean must be set to True in the Hyperparameter_tuning 
 tuning is a combination of grid search and cross-validation therefore it can be quite computationally 
 laborious. Therefore, it is recommended to perform this task in the Google Colaboratory environment.
 
+### Image preprocessing
+Script developed to preprocess the data so that users no longer have to manually crop and straighten image. Currently in development
 
 ### Folder Structure
 ├── ZebrafishClassifier
