@@ -85,6 +85,8 @@ laborious. Therefore, it is recommended to perform this task in the Google Colab
 
 
 ### Folder Structure
+
+```lang-text
 ├── ZebrafishClassifier
   ├── CNN_Classifier                          # CNN Model files 
   │   ├── scripts                             # Script Files
@@ -118,7 +120,7 @@ laborious. Therefore, it is recommended to perform this task in the Google Colab
   ├── Results                                  # Results of the test data using our best model
   │   ├──Results_Option1_2018-12-19_1027.csv   #Results from test set 1
   │   ├──Results_Option2_2018-12-19_1034.csv   #Results from test set 1
-
+```
 
 Some of these folder are generated once the main program is executed
 
