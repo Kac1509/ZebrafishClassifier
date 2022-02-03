@@ -125,7 +125,7 @@ laborious. Therefore, it is recommended to perform this task in the Google Colab
 Some of these folder are generated once the main program is executed
 
 ### Scripts Structure (.py files)
-├── CNN_Model.py
+├── CNN_Model.py <br/>
 This file contains all of the required functions for generating our CNN model. The parameters
 of the model are defined and set here. These user-defined parameters consists of the input size, 
 dropout rate, learning rate, number of nodes, pre-trained model, activation function, loss 
@@ -134,41 +134,41 @@ Each time a model is trained, the paritions for each genotype is first saved int
 train and validation folders. The main function for hyperparameter tuning using cross-validation
 is located in this file, see the section above for further detail.
 
-├── DataVisualization.py
+├── DataVisualization.py <br/>
 All data visulatization and plotting functions are located in this file. First plot is to
 visualize the train & test accuracy and error. Second plot is used to visualize the tuning of
 the hyperparameters using cross-validation. It plots the mean and standard deviation for each
 parameter evaluated.
 
-├── Genotype.py
+├── Genotype.py <br/>
 The Genotype class is defined in this class and contains genotype related information. It also
 contains the function responsible for partitioning the data into train and test sets (when not 
 using cross-validation).
 
-├── Helpers.py
+├── Helpers.py <br/>
 All helper functions are located here. It consists primairly of functions for file and folder
 manipulation.
 
-├── Pre_trained_models.py
+├── Pre_trained_models.py <br/>
 All parameters for the pre-trained model are located here. The process of extracting the bottleneck 
 layer for both VGG16 and InceptionV3 is located in this file
 
-├── Predictions.py
+├── Predictions.py <br/>
 Prediction functions are located here. The predictClass function predicts the class for the images
 located in the Predictions folder. It also contains a function to save the predictions and model
 parameters to a csv file.
 
-├── Setup.py
+├── Setup.py <br/>
 This file is used to set up the environment. In this file all the paths are set and the data is 
 extracted from the zip file. All folders are cleared to reset the environment for the next run.
 
-├── main_knn.py
+├── main_knn.py <br/>
 This file contains all of the required functions for generating and evaluating our KNN model. The parameters
 of the model are defined and set here. Model configuration, compilation and execution is located in this file.
 To run this file it is important to place the 'DataStraightened.zip' file into the KNN_Classifier folder shown
 in the folder structure section
 
-├── KNN_helpers.py
+├── KNN_helpers.py <br/>
 All helper functions regarding KNN model are located here. It consists primairly of functions for file and folder
 manipulation.
 
